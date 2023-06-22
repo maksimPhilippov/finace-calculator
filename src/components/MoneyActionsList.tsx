@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils";
 import { MoneyAction } from "../types/MoneyAction";
 import MoneyActionComponent from "./MoneyActionComponent";
 

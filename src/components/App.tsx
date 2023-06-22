@@ -4,6 +4,7 @@ import MoneyActionsList from "./MoneyActionsList";
 import Diagram from "./Diagram";
 import SaveButton from "./SaveButton";
 import { PeriodSheme } from "../types/PeriodSheme";
+import { EditActionContext } from "../types/ActionEditContext";
 
 const temporaryInitialList: MoneyAction[] = [
   {
@@ -86,18 +87,39 @@ function App() {
     setListMoneyActions(newList);
   }
 
+  function actionChange(oldName: string, newvalue: MoneyAction) {
+    const newList = listMoneyActions.slice(0);
+    const oldElement = newList.find((elem) => elem.name == oldName);
+    if (oldElement !== undefined) {
+      oldElement.name = newvalue.name;
+
+      oldElement.investment = newvalue.investment;
+      oldElement.beginnigDate = newvalue.beginnigDate;
+      oldElement.regularity = newvalue.regularity;
+      oldElement.frequency = newvalue.frequency;
+
+      oldElement.isPercentageIncome = newvalue.isPercentageIncome;
+      oldElement.isIncomeIncrementsInvenstment =
+        newvalue.isIncomeIncrementsInvenstment;
+      oldElement.isActive = newvalue.isActive;
+      oldElement.IncomeValue = newvalue.IncomeValue;
+    }
+  }
+
   return (
     <div className="App">
-      <MoneyActionsList
-        workWithActives={true}
-        actionsList={listMoneyActions}
-        addMoneyAction={addMoneyAction}
-      />
-      <MoneyActionsList
-        workWithActives={false}
-        actionsList={listMoneyActions}
-        addMoneyAction={addMoneyAction}
-      />
+      <EditActionContext.Provider value={{ EditAction: actionChange }}>
+        <MoneyActionsList
+          workWithActives={true}
+          actionsList={listMoneyActions}
+          addMoneyAction={addMoneyAction}
+        />
+        <MoneyActionsList
+          workWithActives={false}
+          actionsList={listMoneyActions}
+          addMoneyAction={addMoneyAction}
+        />
+      </EditActionContext.Provider>
       <Diagram />
       <SaveButton actionsList={listMoneyActions} />
     </div>
