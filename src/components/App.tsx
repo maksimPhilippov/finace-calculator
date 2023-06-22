@@ -5,6 +5,48 @@ import Diagram from "./Diagram";
 import SaveButton from "./SaveButton";
 import { PeriodSheme } from "../types/PeriodSheme";
 
+const temporaryInitialList: MoneyAction[] = [
+  {
+    name: String(new Date()),
+
+    investment: 0,
+    beginnigDate: new Date(0),
+    regularity: PeriodSheme.no,
+    frequency: 0,
+
+    isPercentageIncome: false,
+    isIncomeIncrementsInvenstment: false,
+    isActive: true,
+    IncomeValue: 0,
+  },
+  {
+    name: String(new Date(12300000)),
+
+    investment: 0,
+    beginnigDate: new Date(0),
+    regularity: PeriodSheme.no,
+    frequency: 0,
+
+    isPercentageIncome: false,
+    isIncomeIncrementsInvenstment: false,
+    isActive: false,
+    IncomeValue: 0,
+  },
+  {
+    name: String(new Date(30002300)),
+
+    investment: 0,
+    beginnigDate: new Date(0),
+    regularity: PeriodSheme.no,
+    frequency: 0,
+
+    isPercentageIncome: false,
+    isIncomeIncrementsInvenstment: false,
+    isActive: true,
+    IncomeValue: 0,
+  },
+];
+
 function App() {
   const [listMoneyActions, setListMoneyActions] = useState<MoneyAction[]>([]);
 
@@ -23,7 +65,7 @@ function App() {
 
       setListMoneyActions(actions);
     }
-  });
+  }, []);
 
   function addMoneyAction(isActive: boolean) {
     const newAction: MoneyAction = {

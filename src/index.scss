@@ -1,2 +1,30 @@
 @import "./styles/variables.scss";
 @import "./styles/reset.css";
+
+body {
+  background-color: $main-color;
+  color: $text-color;
+}
+
+.App {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.actions-list {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.save-button {
+  display: fixed;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+
+  padding: 1rem;
+
+  outline-style: groove;
+  outline-width: 5px;
+  outline-color: $borders-color;
+}

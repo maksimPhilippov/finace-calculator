@@ -9,7 +9,7 @@ interface MoneyActionsListProp {
 }
 export default function MoneyActionsList(prop: MoneyActionsListProp) {
   return (
-    <div>
+    <div className="actions-list">
       <button onClick={() => prop.addMoneyAction(prop.workWithActives)}>
         add
       </button>

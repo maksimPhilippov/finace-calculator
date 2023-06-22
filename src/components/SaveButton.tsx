@@ -14,5 +14,9 @@ export default function SaveButton(prop: SaveButtonProp) {
     window.localStorage.setItem("actionNames", JSON.stringify(names));
   }
 
-  return <button onClick={click}>save</button>;
+  return (
+    <button className="save-button" onClick={click}>
+      save
+    </button>
+  );
 }
