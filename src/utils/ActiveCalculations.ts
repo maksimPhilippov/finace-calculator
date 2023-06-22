@@ -1,4 +1,4 @@
-import { Active } from "../types/Active";
+import { MoneyAction } from "../types/MoneyAction";
 import { PeriodSheme } from "../types/PeriodSheme";
 
 const milisecondsInDay = 1000 * 60 * 60 * 24;
@@ -30,22 +30,22 @@ function yearDifference(day: Date, beginnigDate: Date) {
   return day.getFullYear() - beginnigDate.getFullYear();
 }
 
-export function isIncomeDay(active: Active, day: Date) {
+export function isMoneyActionGain(active: MoneyAction, day: Date) {
   let period: number = 0;
-  switch (active.inputs.regularity) {
+  switch (active.regularity) {
     case PeriodSheme.byDays:
-      period = dayDifference(day, active.inputs.beginnigDate);
+      period = dayDifference(day, active.beginnigDate);
       break;
     case PeriodSheme.byWeeks:
-      period = weekDifference(day, active.inputs.beginnigDate);
+      period = weekDifference(day, active.beginnigDate);
       break;
     case PeriodSheme.byMonths:
-      period = monthDifference(day, active.inputs.beginnigDate);
+      period = monthDifference(day, active.beginnigDate);
       break;
     case PeriodSheme.byYears:
-      period = yearDifference(day, active.inputs.beginnigDate);
+      period = yearDifference(day, active.beginnigDate);
       break;
   }
 
-  return period % active.inputs.frequency === 0 ? true : false;
+  return period % active.frequency === 0 ? true : false;
 }
