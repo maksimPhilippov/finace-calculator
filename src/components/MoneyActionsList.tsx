@@ -1,25 +1,23 @@
+import { act } from "react-dom/test-utils";
 import { MoneyAction } from "../types/MoneyAction";
-import Active from "./Active";
-import Passive from "./Passive";
+import MoneyActionComponent from "./MoneyActionComponent";
 
 interface MoneyActionsListProp {
   workWithActives: boolean;
-  addMoneyAction: (action: MoneyAction) => void;
+  addMoneyAction: (isActive: boolean) => void;
   actionsList: MoneyAction[];
 }
 export default function MoneyActionsList(prop: MoneyActionsListProp) {
   return (
     <div>
-      <button>add</button>
+      <button onClick={() => prop.addMoneyAction(prop.workWithActives)}>
+        add
+      </button>
       {prop.actionsList
         .filter((action) => action.isActive == prop.workWithActives)
-        .map((action) => {
-          return prop.workWithActives ? (
-            <Active active={action}></Active>
-          ) : (
-            <Passive></Passive>
-          );
-        })}
+        .map((action) => (
+          <MoneyActionComponent action={action} />
+        ))}
     </div>
   );
 }

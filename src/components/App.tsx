@@ -3,6 +3,7 @@ import { MoneyAction } from "../types/MoneyAction";
 import MoneyActionsList from "./MoneyActionsList";
 import Diagram from "./Diagram";
 import SaveButton from "./SaveButton";
+import { PeriodSheme } from "../types/PeriodSheme";
 
 function App() {
   const [listMoneyActions, setListMoneyActions] = useState<MoneyAction[]>([]);
@@ -24,9 +25,22 @@ function App() {
     }
   });
 
-  function addMoneyAction(action: MoneyAction) {
+  function addMoneyAction(isActive: boolean) {
+    const newAction: MoneyAction = {
+      name: String(new Date()),
+
+      investment: 0,
+      beginnigDate: new Date(),
+      regularity: PeriodSheme.no,
+      frequency: 0,
+
+      isPercentageIncome: false,
+      isIncomeIncrementsInvenstment: false,
+      isActive: isActive,
+      IncomeValue: 0,
+    };
     let newList = listMoneyActions.slice(0);
-    newList.push(action);
+    newList.push(newAction);
     setListMoneyActions(newList);
   }
 
