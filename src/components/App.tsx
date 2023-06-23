@@ -6,22 +6,6 @@ import SaveButton from "./SaveButton";
 import { PeriodSheme } from "../types/PeriodSheme";
 import { EditActionContext } from "../types/ActionEditContext";
 
-const temporaryInitialList: MoneyAction[] = [
-  {
-    name: "investition",
-
-    investment: 0,
-    beginnigDate: new Date(0),
-    regularity: PeriodSheme["by weeks"],
-    frequency: 1,
-
-    isPercentageIncome: true,
-    isIncomeIncrementsInvenstment: false,
-    isActive: true,
-    IncomeValue: 10,
-  },
-];
-
 function App() {
   const [listMoneyActions, setListMoneyActions] = useState<MoneyAction[]>([]);
 
@@ -67,7 +51,7 @@ function App() {
 
   function actionChange(oldName: string, newvalue: MoneyAction) {
     const newList = listMoneyActions.slice(0);
-    const oldElement = newList.find((elem) => elem.name == oldName);
+    const oldElement = newList.find((elem) => elem.name === oldName);
     if (oldElement !== undefined) {
       oldElement.name = newvalue.name;
 
