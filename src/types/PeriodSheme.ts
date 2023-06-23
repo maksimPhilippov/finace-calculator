@@ -1,7 +1,7 @@
 export enum PeriodSheme {
-  no,
-  byDays,
-  byWeeks,
-  byMonths,
-  byYears,
+  "no",
+  "by days",
+  "by weeks",
+  "by months",
+  "by years",
 }

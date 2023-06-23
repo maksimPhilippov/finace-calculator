@@ -108,3 +108,7 @@ label {
 legend {
   display: block;
 }
+
+button:focus {
+  outline-style: none;
+}

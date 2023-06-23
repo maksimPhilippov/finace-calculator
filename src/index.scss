@@ -46,3 +46,30 @@ body {
   background-color: $active-color;
   outline-color: $active-color;
 }
+
+.dropdown-base {
+  @include element-border;
+  width: 6em;
+  background-color: $main-color;
+  color: white;
+
+  .dropdown-menu {
+    @include element-border;
+
+    position: absolute;
+    list-style-type: none;
+    width: 6em;
+    li {
+      display: block;
+      width: 6em;
+      background-color: $main-color;
+    }
+    li:hover {
+      background-color: $interactive-color;
+    }
+  }
+}
+
+.dropdown-base:focus {
+  @include element-border;
+}

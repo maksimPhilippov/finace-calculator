@@ -33,16 +33,16 @@ function yearDifference(day: Date, beginnigDate: Date) {
 export function isMoneyActionGain(active: MoneyAction, day: Date) {
   let period: number = 0;
   switch (active.regularity) {
-    case PeriodSheme.byDays:
+    case PeriodSheme["by days"]:
       period = dayDifference(day, active.beginnigDate);
       break;
-    case PeriodSheme.byWeeks:
+    case PeriodSheme["by weeks"]:
       period = weekDifference(day, active.beginnigDate);
       break;
-    case PeriodSheme.byMonths:
+    case PeriodSheme["by months"]:
       period = monthDifference(day, active.beginnigDate);
       break;
-    case PeriodSheme.byYears:
+    case PeriodSheme["by years"]:
       period = yearDifference(day, active.beginnigDate);
       break;
   }
