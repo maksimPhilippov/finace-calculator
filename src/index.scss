@@ -80,8 +80,7 @@ body {
   height: 1rem;
   margin: 0.5rem;
 
-  outline: solid 1px white;
-  border-radius: 4px;
+  outline: outset 1px white;
   border: 2px solid $main-color;
 
   transition: background-color 0.2s ease;
