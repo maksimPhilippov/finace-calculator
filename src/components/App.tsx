@@ -8,43 +8,17 @@ import { EditActionContext } from "../types/ActionEditContext";
 
 const temporaryInitialList: MoneyAction[] = [
   {
-    name: String(new Date()),
+    name: "investition",
 
     investment: 0,
     beginnigDate: new Date(0),
-    regularity: PeriodSheme.no,
-    frequency: 0,
+    regularity: PeriodSheme["by weeks"],
+    frequency: 1,
 
-    isPercentageIncome: false,
+    isPercentageIncome: true,
     isIncomeIncrementsInvenstment: false,
     isActive: true,
-    IncomeValue: 0,
-  },
-  {
-    name: String(new Date(12300000)),
-
-    investment: 0,
-    beginnigDate: new Date(0),
-    regularity: PeriodSheme.no,
-    frequency: 0,
-
-    isPercentageIncome: false,
-    isIncomeIncrementsInvenstment: false,
-    isActive: false,
-    IncomeValue: 0,
-  },
-  {
-    name: String(new Date(30002300)),
-
-    investment: 0,
-    beginnigDate: new Date(0),
-    regularity: PeriodSheme.no,
-    frequency: 0,
-
-    isPercentageIncome: false,
-    isIncomeIncrementsInvenstment: false,
-    isActive: true,
-    IncomeValue: 0,
+    IncomeValue: 10,
   },
 ];
 
@@ -58,7 +32,11 @@ function App() {
       let actions: MoneyAction[] = actionNames.map((name) => {
         let newaction = window.localStorage.getItem(name);
         if (newaction !== null) {
-          return { ...JSON.parse(newaction) };
+          let parsedDateAction = { ...JSON.parse(newaction) };
+          parsedDateAction.beginnigDate = new Date(
+            Date.parse(parsedDateAction.beginnigDate)
+          );
+          return { ...parsedDateAction };
         } else {
           return {};
         }
@@ -104,6 +82,7 @@ function App() {
       oldElement.isActive = newvalue.isActive;
       oldElement.IncomeValue = newvalue.IncomeValue;
     }
+    setListMoneyActions(newList);
   }
 
   return (
@@ -120,7 +99,7 @@ function App() {
           addMoneyAction={addMoneyAction}
         />
       </EditActionContext.Provider>
-      <Diagram />
+      <Diagram actionsList={listMoneyActions} />
       <SaveButton actionsList={listMoneyActions} />
     </div>
   );

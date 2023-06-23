@@ -31,8 +31,11 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
 
   function validateInvestment(newInvestment: string) {
     let investment = parseInt(newInvestment);
+    if (Number.isNaN(investment)) {
+      investment = 0;
+    }
     if (!localAction.isActive) {
-      investment = -investment;
+      investment = -Math.abs(investment);
     }
     setLocalAction({ ...localAction, investment: investment });
   }
@@ -47,8 +50,11 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
 
   function validateIncomeValue(newIncomeValue: string) {
     let value = parseInt(newIncomeValue);
+    if (Number.isNaN(value)) {
+      value = 0;
+    }
     if (!localAction.isActive) {
-      value = -value;
+      value = -Math.abs(value);
     }
 
     setLocalAction({ ...localAction, IncomeValue: value });
@@ -68,15 +74,15 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
         )}
       </div>
 
-      <p>
+      <div>
         Title:
         <SwitchableInput
           value={localAction.name}
           enabled={editMode}
           validationFunction={validateName}
         />
-      </p>
-      <p>
+      </div>
+      <div>
         Investment:
         <SwitchableInput
           value={String(
@@ -87,16 +93,16 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
           enabled={editMode}
           validationFunction={validateInvestment}
         />
-      </p>
-      <p>
+      </div>
+      <div>
         Begining date:
         {/* <SwitchableInput
         value={localAction.name}
         enabled={editMode}
         validationFunction={validateName}
       /> */}
-      </p>
-      <p>
+      </div>
+      <div>
         Regularity:
         <SwitchableDropdown
           enabled={editMode}
@@ -105,16 +111,16 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
             setLocalAction({ ...localAction, regularity: option })
           }
         />
-      </p>
-      <p>
+      </div>
+      <div>
         Frequency:
         <SwitchableInput
           value={String(localAction.frequency)}
           enabled={editMode}
           validationFunction={validateFrequency}
         />
-      </p>
-      <p>
+      </div>
+      <div>
         <SwitchableCheckbox
           value={localAction.isPercentageIncome}
           setter={(value) =>
@@ -127,8 +133,8 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
         ) : (
           <span>Spending is percentage of debt</span>
         )}
-      </p>
-      <p>
+      </div>
+      <div>
         <SwitchableCheckbox
           value={localAction.isIncomeIncrementsInvenstment}
           setter={(value) =>
@@ -144,15 +150,15 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
         ) : (
           <span>Spending automaticaly added to debt</span>
         )}
-      </p>
-      <p>
+      </div>
+      <div>
         {localAction.isActive ? <span>Income: </span> : <span>Spending: </span>}
         <SwitchableInput
-          value={String(localAction.IncomeValue)}
+          value={String(Math.abs(localAction.IncomeValue))}
           enabled={editMode}
           validationFunction={validateIncomeValue}
         />
-      </p>
+      </div>
     </div>
   );
 }

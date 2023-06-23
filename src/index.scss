@@ -59,6 +59,8 @@ body {
 .dropdown-base {
   @include element-border;
   width: 6em;
+
+  display: inline-block;
   margin-inline: 1rem;
   background-color: $main-color;
   color: white;
@@ -102,4 +104,11 @@ body {
 
 .box-disabled {
   background-color: $main-color;
+}
+
+.graph {
+  margin: 2rem;
+  max-width: 300px;
+  max-height: 400px;
+  background-color: $interactive-color;
 }

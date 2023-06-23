@@ -13,13 +13,13 @@ export default function SwitchableRegularityDropdown(
   const [opened, setOpened] = useState(false);
 
   return (
-    <button
+    <div
       className="dropdown-base"
       onClick={() => {
         if (prop.enabled) setOpened(!opened);
       }}
     >
-      <p>{PeriodSheme[prop.currentValue]}</p>
+      <span>{PeriodSheme[prop.currentValue]}</span>
       {opened && (
         <ul className="dropdown-menu">
           <li>
@@ -47,6 +47,6 @@ export default function SwitchableRegularityDropdown(
           </li>
         </ul>
       )}
-    </button>
+    </div>
   );
 }
