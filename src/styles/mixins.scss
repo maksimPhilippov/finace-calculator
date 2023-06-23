@@ -1,9 +1,6 @@
 @import "./variables.scss";
 
 @mixin element-border {
-  padding: 0.2rem;
-  margin: 0.2rem;
-
   outline-style: outset;
   outline-width: 3px;
   outline-color: $borders-color;

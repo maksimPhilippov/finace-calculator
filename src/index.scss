@@ -18,6 +18,8 @@ body {
 
 .save-button {
   @include element-border;
+  padding: 0.2rem;
+  margin: 0.2rem;
 
   display: fixed;
   position: absolute;
@@ -28,6 +30,13 @@ body {
 }
 
 .regular-button {
+  @include element-border;
+
+  padding: 0.2rem;
+  margin: 0.2rem;
+}
+
+.regular-button:focus {
   @include element-border;
 }
 
@@ -50,6 +59,7 @@ body {
 .dropdown-base {
   @include element-border;
   width: 6em;
+  margin-inline: 1rem;
   background-color: $main-color;
   color: white;
 
@@ -75,10 +85,10 @@ body {
 }
 
 .checkbox {
-  display: block;
+  display: inline-block;
   width: 1rem;
   height: 1rem;
-  margin: 0.5rem;
+  margin-inline: 0.5rem;
 
   outline: outset 1px white;
   border: 2px solid $main-color;
