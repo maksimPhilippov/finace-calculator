@@ -1,6 +1,6 @@
 @import "./styles/variables.scss";
 @import "./styles/reset.css";
-
+@import "./styles/mixins.scss";
 body {
   background-color: $main-color;
   color: $text-color;
@@ -17,14 +17,32 @@ body {
 }
 
 .save-button {
+  @include element-border;
+
   display: fixed;
   position: absolute;
   bottom: 1rem;
   right: 1rem;
 
-  padding: 1rem;
+  font-size: 3rem;
+}
 
-  outline-style: groove;
-  outline-width: 5px;
-  outline-color: $borders-color;
+.regular-button {
+  @include element-border;
+}
+
+.money-action {
+  @include element-border;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.passive {
+  background-color: $passive-color;
+  outline-color: $passive-color;
+}
+
+.active {
+  background-color: $active-color;
+  outline-color: $active-color;
 }
