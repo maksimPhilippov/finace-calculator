@@ -36,7 +36,18 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
     setLocalAction({ ...localAction, investment: investment });
   }
 
-  // function validate
+  function validateFrequency(newFrequency: string) {
+    setLocalAction({ ...localAction, frequency: parseInt(newFrequency) });
+  }
+
+  function validateIncomeValue(newIncomeValue: string) {
+    let value = parseInt(newIncomeValue);
+    if (!localAction.isActive) {
+      value = -value;
+    }
+
+    setLocalAction({ ...localAction, IncomeValue: value });
+  }
 
   return (
     <div className={className}>
@@ -63,11 +74,11 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
         enabled={editMode}
         validationFunction={validateInvestment}
       />
-      <SwitchableInput
+      {/* <SwitchableInput
         value={localAction.name}
         enabled={editMode}
         validationFunction={validateName}
-      />
+      /> */}
       <SwitchableDropdown
         enabled={editMode}
         currentValue={localAction.regularity}
@@ -76,9 +87,9 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
         }
       />
       <SwitchableInput
-        value={localAction.name}
+        value={String(localAction.frequency)}
         enabled={editMode}
-        validationFunction={validateName}
+        validationFunction={validateFrequency}
       />
       <SwitchableInput
         value={localAction.name}
@@ -96,9 +107,9 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
         validationFunction={validateName}
       />
       <SwitchableInput
-        value={localAction.name}
+        value={String(localAction.IncomeValue)}
         enabled={editMode}
-        validationFunction={validateName}
+        validationFunction={validateIncomeValue}
       />
     </div>
   );
