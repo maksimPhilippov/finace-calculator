@@ -4,6 +4,7 @@ import { EditActionContext } from "../types/ActionEditContext";
 import SwitchableInput from "./SwitchableInput";
 import SwitchableDropdown from "./SwitchableRegularityDropdown";
 import { PeriodSheme } from "../types/PeriodSheme";
+import SwitchableCheckbox from "./SwitchableCheckbox";
 
 interface MoneyActionComponentProp {
   action: MoneyAction;
@@ -91,21 +92,24 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
         enabled={editMode}
         validationFunction={validateFrequency}
       />
-      <SwitchableInput
-        value={localAction.name}
-        enabled={editMode}
-        validationFunction={validateName}
+      <SwitchableCheckbox
+        value={localAction.isPercentageIncome}
+        setter={(value) =>
+          setLocalAction({ ...localAction, isPercentageIncome: value })
+        }
+        accessedToConfig={editMode}
       />
-      <SwitchableInput
-        value={localAction.name}
-        enabled={editMode}
-        validationFunction={validateName}
+      <SwitchableCheckbox
+        value={localAction.isIncomeIncrementsInvenstment}
+        setter={(value) =>
+          setLocalAction({
+            ...localAction,
+            isIncomeIncrementsInvenstment: value,
+          })
+        }
+        accessedToConfig={editMode}
       />
-      <SwitchableInput
-        value={localAction.name}
-        enabled={editMode}
-        validationFunction={validateName}
-      />
+
       <SwitchableInput
         value={String(localAction.IncomeValue)}
         enabled={editMode}

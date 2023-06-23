@@ -73,3 +73,24 @@ body {
 .dropdown-base:focus {
   @include element-border;
 }
+
+.checkbox {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin: 0.5rem;
+
+  outline: solid 1px white;
+  border-radius: 4px;
+  border: 2px solid $main-color;
+
+  transition: background-color 0.2s ease;
+}
+
+.box-enabled {
+  background-color: white;
+}
+
+.box-disabled {
+  background-color: $main-color;
+}
