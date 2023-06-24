@@ -112,3 +112,16 @@ body {
   max-height: 400px;
   background-color: $interactive-color;
 }
+
+.date-picker {
+  @include element-border;
+  display: inline-block;
+  width: fit-content;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  input {
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    margin: 0;
+  }
+}
