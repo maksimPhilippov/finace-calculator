@@ -3,7 +3,6 @@ import { MoneyAction } from "../types/MoneyAction";
 import { EditActionContext } from "../types/ActionEditContext";
 import SwitchableInput from "./SwitchableInput";
 import SwitchableDropdown from "./SwitchableRegularityDropdown";
-import { PeriodSheme } from "../types/PeriodSheme";
 import SwitchableCheckbox from "./SwitchableCheckbox";
 
 interface MoneyActionComponentProp {
@@ -94,14 +93,7 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
           validationFunction={validateInvestment}
         />
       </div>
-      <div>
-        Begining date:
-        {/* <SwitchableInput
-        value={localAction.name}
-        enabled={editMode}
-        validationFunction={validateName}
-      /> */}
-      </div>
+      <div>Begining date: </div>
       <div>
         Regularity:
         <SwitchableDropdown
