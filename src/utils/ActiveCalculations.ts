@@ -64,7 +64,6 @@ export function isMoneyActionGain(active: MoneyAction, day: Date) {
       break;
   }
   let result = period % active.frequency === 0 ? true : false;
-  // period > 0 ? (period % active.frequency === 0 ? true : false) : false;
   return result;
 }
 
@@ -82,10 +81,7 @@ export function MoneyActionImpact(
     day.getTime() < endDate.getTime();
     day.setTime(day.getTime() + milisecondsInDay)
   ) {
-    // console.log(day);
-    // console.log(action.beginnigDate);
     if (day.getTime() === action.beginnigDate.getTime()) {
-      // console.log("yea");
       cash = -action.investment;
       capital = action.investment;
     }
@@ -96,7 +92,7 @@ export function MoneyActionImpact(
       } else {
         income = action.IncomeValue;
       }
-      // console.log(day, income);
+
       if (action.isIncomeIncrementsInvenstment) {
         capital += income;
       } else {
@@ -105,41 +101,5 @@ export function MoneyActionImpact(
     }
     report.push([new Date(day), cash, capital]);
   }
-  // console.log(report);
   return report;
 }
-
-//   let investmentInTime = 0;
-//   let cash =
-//     startDate.getTime() < action.beginnigDate.getTime() ? 0 : action.investment;
-//   let periodReport: periodReportType = [];
-
-//   for (
-//     let day = new Date(startDate);
-//     day.getTime() < endDate.getTime();
-//     day.setTime(day.getTime() + milisecondsInDay)
-//   ) {
-//     if (day.getTime() == action.beginnigDate.getTime()) {
-//       cash = -action.investment;
-//       investmentInTime = action.investment;
-//     }
-
-//     if (isMoneyActionGain(action, day)) {
-//       let income = 0;
-//       if (action.isPercentageIncome) {
-//         income = (investmentInTime * action.IncomeValue) / 100;
-//       } else {
-//         income = action.IncomeValue;
-//       }
-
-//       if (action.isIncomeIncrementsInvenstment) {
-//         investmentInTime += income;
-//       } else {
-//         cash += income;
-//       }
-//       periodReport.push([new Date(day), cash, investmentInTime]);
-//     }
-//   }
-
-//   return periodReport;
-// }

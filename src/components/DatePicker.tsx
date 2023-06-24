@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 interface DatePickerProp {
   value: Date;
   setter: (date: Date) => void;

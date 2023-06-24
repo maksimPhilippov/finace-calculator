@@ -1,4 +1,3 @@
-import React from "react";
 import { MoneyAction } from "../types/MoneyAction";
 
 interface SaveButtonProp {

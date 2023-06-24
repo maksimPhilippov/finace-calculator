@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { MoneyAction } from "../types/MoneyAction";
 import {
   MoneyActionImpact,
@@ -60,7 +60,6 @@ export default function Diagram(prop: DiagramProp) {
         data[index][1] += value;
       });
     });
-    console.log(data);
     return data;
   }
 

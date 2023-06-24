@@ -10,8 +10,6 @@ interface GraphProp {
 }
 export default function Graph(prop: GraphProp) {
   const canvas = useRef<HTMLCanvasElement | null>(null);
-  // console.log()
-  console.log("prop.data ", prop.data);
 
   const graphPoints: [x: number, y: number][] = prop.data.map(
     ([date, value]) => [
@@ -40,7 +38,6 @@ export default function Graph(prop: GraphProp) {
       }
     }
   }, [graphPoints]);
-  console.log("graphpoints", graphPoints);
   return (
     <div>
       <canvas ref={canvas} className="graph"></canvas>
