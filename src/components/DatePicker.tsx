@@ -10,6 +10,7 @@ export default function DatePicker(prop: DatePickerProp) {
   const day = prop.value.getDate();
   const month = prop.value.getMonth();
   const year = prop.value.getFullYear();
+  const hours = 4;
 
   function getDaysInMonth(selectedYear: number, selectedMonth: number) {
     return 32 - new Date(selectedYear, selectedMonth, 32).getDate();
@@ -37,7 +38,7 @@ export default function DatePicker(prop: DatePickerProp) {
     }
 
     value = validateDay(value, year, month);
-    const newDate = new Date(year, month, value);
+    const newDate = new Date(year, month, value, hours);
     prop.setter(newDate);
   }
 
@@ -55,8 +56,7 @@ export default function DatePicker(prop: DatePickerProp) {
     }
 
     let dayValue = validateDay(day, year, value);
-    console.log(dayValue);
-    const newDate = new Date(year, value, dayValue);
+    const newDate = new Date(year, value, dayValue, hours);
     prop.setter(newDate);
   }
 
@@ -73,7 +73,7 @@ export default function DatePicker(prop: DatePickerProp) {
 
     let dayValue = validateDay(day, value, month);
 
-    const newDate = new Date(value, month, dayValue);
+    const newDate = new Date(value, month, dayValue, hours);
     if (value < 1000) {
       newDate.setFullYear(value);
     }

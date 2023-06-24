@@ -6,12 +6,18 @@ interface GraphProp {
   data: [date: Date, value: number][];
   xScale: number;
   yScale: number;
+  startDate: Date;
 }
 export default function Graph(prop: GraphProp) {
   const canvas = useRef<HTMLCanvasElement | null>(null);
+  // console.log()
+  console.log("prop.data ", prop.data);
 
   const graphPoints: [x: number, y: number][] = prop.data.map(
-    ([date, value]) => [date.getTime() / milisecondsInDay, value]
+    ([date, value]) => [
+      (date.getTime() - prop.startDate.getTime()) / milisecondsInDay,
+      value,
+    ]
   );
 
   useEffect(() => {
@@ -26,15 +32,15 @@ export default function Graph(prop: GraphProp) {
           height,
           prop.xScale,
           prop.yScale,
-          30,
-          20,
-          [width * 0.1, height * 0.9],
+          50,
+          50,
+          [width * 0.15, height * 0.9],
           graphPoints
         );
       }
     }
   }, [graphPoints]);
-
+  console.log("graphpoints", graphPoints);
   return (
     <div>
       <canvas ref={canvas} className="graph"></canvas>

@@ -1,6 +1,7 @@
 import { MoneyAction } from "../types/MoneyAction";
 import { PeriodSheme } from "../types/PeriodSheme";
 import { periodReportType } from "../types/PeriodReport";
+import { act } from "react-dom/test-utils";
 
 export const milisecondsInDay = 1000 * 60 * 60 * 24;
 const milisecondsInWeek = milisecondsInDay * 7;
@@ -38,16 +39,33 @@ export function isMoneyActionGain(active: MoneyAction, day: Date) {
       period = dayDifference(day, active.beginnigDate);
       break;
     case PeriodSheme["by weeks"]:
-      period = weekDifference(day, active.beginnigDate);
+      if (day.getDay() === active.beginnigDate.getDay()) {
+        period = weekDifference(day, active.beginnigDate);
+      } else {
+        return false;
+      }
       break;
     case PeriodSheme["by months"]:
-      period = monthDifference(day, active.beginnigDate);
+      if (day.getDate() === active.beginnigDate.getDate()) {
+        period = monthDifference(day, active.beginnigDate);
+      } else {
+        return false;
+      }
       break;
     case PeriodSheme["by years"]:
-      period = yearDifference(day, active.beginnigDate);
+      if (
+        day.getDate() === active.beginnigDate.getDate() &&
+        day.getMonth() === active.beginnigDate.getMonth()
+      ) {
+        period = yearDifference(day, active.beginnigDate);
+      } else {
+        return false;
+      }
       break;
   }
-  return period > 0 ? (period % active.frequency === 0 ? true : false) : false;
+  let result = period % active.frequency === 0 ? true : false;
+  // period > 0 ? (period % active.frequency === 0 ? true : false) : false;
+  return result;
 }
 
 export function MoneyActionImpact(
@@ -55,37 +73,73 @@ export function MoneyActionImpact(
   startDate: Date,
   endDate: Date
 ) {
-  let investmentInTime = 0;
-  let cash =
-    startDate.getTime() < action.beginnigDate.getTime() ? 0 : action.investment;
-  let periodReport: periodReportType = [];
+  let cash = 0;
+  let capital = 0;
+  let report: periodReportType = [];
 
   for (
     let day = new Date(startDate);
     day.getTime() < endDate.getTime();
     day.setTime(day.getTime() + milisecondsInDay)
   ) {
-    if (day.getTime() == action.beginnigDate.getTime()) {
+    // console.log(day);
+    // console.log(action.beginnigDate);
+    if (day.getTime() === action.beginnigDate.getTime()) {
+      // console.log("yea");
       cash = -action.investment;
-      investmentInTime = action.investment;
+      capital = action.investment;
     }
-
     if (isMoneyActionGain(action, day)) {
       let income = 0;
       if (action.isPercentageIncome) {
-        income = (action.investment * action.IncomeValue) / 100;
+        income = capital * (action.IncomeValue / 100);
       } else {
         income = action.IncomeValue;
       }
-
+      // console.log(day, income);
       if (action.isIncomeIncrementsInvenstment) {
-        investmentInTime += income;
+        capital += income;
       } else {
         cash += income;
       }
-      periodReport.push([new Date(day), cash, investmentInTime]);
     }
+    report.push([new Date(day), cash, capital]);
   }
-
-  return periodReport;
+  // console.log(report);
+  return report;
 }
+
+//   let investmentInTime = 0;
+//   let cash =
+//     startDate.getTime() < action.beginnigDate.getTime() ? 0 : action.investment;
+//   let periodReport: periodReportType = [];
+
+//   for (
+//     let day = new Date(startDate);
+//     day.getTime() < endDate.getTime();
+//     day.setTime(day.getTime() + milisecondsInDay)
+//   ) {
+//     if (day.getTime() == action.beginnigDate.getTime()) {
+//       cash = -action.investment;
+//       investmentInTime = action.investment;
+//     }
+
+//     if (isMoneyActionGain(action, day)) {
+//       let income = 0;
+//       if (action.isPercentageIncome) {
+//         income = (investmentInTime * action.IncomeValue) / 100;
+//       } else {
+//         income = action.IncomeValue;
+//       }
+
+//       if (action.isIncomeIncrementsInvenstment) {
+//         investmentInTime += income;
+//       } else {
+//         cash += income;
+//       }
+//       periodReport.push([new Date(day), cash, investmentInTime]);
+//     }
+//   }
+
+//   return periodReport;
+// }

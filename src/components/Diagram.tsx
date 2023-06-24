@@ -5,18 +5,29 @@ import {
   milisecondsInDay,
 } from "../utils/ActiveCalculations";
 import Graph from "./Graph";
+import DatePicker from "./DatePicker";
+import { GraphTypes } from "../types/GraphTypes";
+import GraphTypeSelector from "./GraphTypeSelector";
 
 interface DiagramProp {
   actionsList: MoneyAction[];
 }
 export default function Diagram(prop: DiagramProp) {
-  console.log("diagram rerender");
-  const [startDate, setStartDate] = useState(new Date(0));
-  const [endDate, setEndDate] = useState(new Date(24 * 60 * 60 * 1000 * 1000));
-
-  const reports = prop.actionsList.map((action) =>
-    MoneyActionImpact(action, startDate, endDate)
+  const [startDate, setStartDate] = useState(
+    new Date(milisecondsInDay * 365 * 40)
   );
+  const [endDate, setEndDate] = useState(
+    new Date(startDate.getTime() + milisecondsInDay * 1000)
+  );
+  const [moneyScale, setMoneyScale] = useState(1000);
+  const [timeScale, setTimeScale] = useState(1);
+  const [graphType, setGraphType] = useState(GraphTypes.cash);
+
+  const reports = useMemo(() => {
+    return prop.actionsList.map((action) =>
+      MoneyActionImpact(action, startDate, endDate)
+    );
+  }, [startDate, endDate, prop.actionsList]);
 
   function initGraphData() {
     let result: [date: Date, value: number][] = [];
@@ -32,19 +43,80 @@ export default function Diagram(prop: DiagramProp) {
 
   function calculateGraphData() {
     const data: [date: Date, value: number][] = initGraphData();
+    let value = 0;
     reports.forEach((report) => {
       report.forEach((element, index) => {
-        data[index][1] += element[1];
+        switch (graphType) {
+          case GraphTypes.cash:
+            value = element[1];
+            break;
+          case GraphTypes.capital:
+            value = element[2];
+            break;
+          default:
+            value = element[1] + element[2];
+            break;
+        }
+        data[index][1] += value;
       });
     });
+    console.log(data);
     return data;
   }
 
-  const graphData = calculateGraphData();
+  const graphData = useMemo(() => calculateGraphData(), [reports, graphType]);
 
   return (
     <div className="diagram">
-      <Graph data={graphData} xScale={1} yScale={1000} />
+      <DatePicker
+        value={startDate}
+        setter={(date) => setStartDate(date)}
+        enabled={true}
+      />
+      <DatePicker
+        value={endDate}
+        setter={(date) => setEndDate(date)}
+        enabled={true}
+      />
+      <GraphTypeSelector currentValue={graphType} setChose={setGraphType} />
+      <input
+        type="text"
+        value={timeScale}
+        placeholder="time scaler"
+        onChange={(e) => {
+          let scale = parseInt(e.target.value);
+          if (Number.isNaN(scale)) {
+            scale = 1;
+          } else if (scale < 1) {
+            scale = 1;
+          } else if (scale > 10000) {
+            scale = 10000;
+          }
+          setTimeScale(scale);
+        }}
+      />
+      <input
+        type="text"
+        value={moneyScale}
+        placeholder="money scaler"
+        onChange={(e) => {
+          let scale = parseInt(e.target.value);
+          if (Number.isNaN(scale)) {
+            scale = 1;
+          } else if (scale < 1) {
+            scale = 1;
+          } else if (scale > 10000000) {
+            scale = 10000000;
+          }
+          setMoneyScale(scale);
+        }}
+      />
+      <Graph
+        startDate={startDate}
+        data={graphData}
+        xScale={timeScale}
+        yScale={moneyScale}
+      />
     </div>
   );
 }

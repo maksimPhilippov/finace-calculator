@@ -107,9 +107,8 @@ body {
 }
 
 .graph {
+  image-rendering: pixelated;
   margin: 2rem;
-  max-width: 300px;
-  max-height: 400px;
   background-color: $interactive-color;
 }
 

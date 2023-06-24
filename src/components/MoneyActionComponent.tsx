@@ -4,6 +4,7 @@ import { EditActionContext } from "../types/ActionEditContext";
 import SwitchableInput from "./SwitchableInput";
 import SwitchableDropdown from "./SwitchableRegularityDropdown";
 import SwitchableCheckbox from "./SwitchableCheckbox";
+import DatePicker from "./DatePicker";
 
 interface MoneyActionComponentProp {
   action: MoneyAction;
@@ -93,7 +94,16 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
           validationFunction={validateInvestment}
         />
       </div>
-      <div>Begining date: </div>
+      <div>
+        Begining date:
+        <DatePicker
+          value={localAction.beginnigDate}
+          enabled={editMode}
+          setter={(date) =>
+            setLocalAction({ ...localAction, beginnigDate: date })
+          }
+        />
+      </div>
       <div>
         Regularity:
         <SwitchableDropdown
