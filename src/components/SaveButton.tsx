@@ -14,8 +14,8 @@ export default function SaveButton(prop: SaveButtonProp) {
   }
 
   return (
-    <button className="save-button" onClick={click}>
-      save
+    <button className="save-button regular-button" onClick={click}>
+      Save
     </button>
   );
 }

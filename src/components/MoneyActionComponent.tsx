@@ -65,11 +65,11 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
       <div>
         {editMode ? (
           <button className="regular-button" onClick={save}>
-            save
+            Save
           </button>
         ) : (
           <button className="regular-button" onClick={() => setEditMode(true)}>
-            edit
+            Edit
           </button>
         )}
       </div>

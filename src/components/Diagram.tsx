@@ -67,49 +67,64 @@ export default function Diagram(prop: DiagramProp) {
 
   return (
     <div className="diagram">
-      <DatePicker
-        value={startDate}
-        setter={(date) => setStartDate(date)}
-        enabled={true}
-      />
-      <DatePicker
-        value={endDate}
-        setter={(date) => setEndDate(date)}
-        enabled={true}
-      />
-      <GraphTypeSelector currentValue={graphType} setChose={setGraphType} />
-      <input
-        type="text"
-        value={timeScale}
-        placeholder="time scaler"
-        onChange={(e) => {
-          let scale = parseInt(e.target.value);
-          if (Number.isNaN(scale)) {
-            scale = 1;
-          } else if (scale < 1) {
-            scale = 1;
-          } else if (scale > 10000) {
-            scale = 10000;
-          }
-          setTimeScale(scale);
-        }}
-      />
-      <input
-        type="text"
-        value={moneyScale}
-        placeholder="money scaler"
-        onChange={(e) => {
-          let scale = parseInt(e.target.value);
-          if (Number.isNaN(scale)) {
-            scale = 1;
-          } else if (scale < 1) {
-            scale = 1;
-          } else if (scale > 10000000) {
-            scale = 10000000;
-          }
-          setMoneyScale(scale);
-        }}
-      />
+      <div>
+        Start date:
+        <DatePicker
+          value={startDate}
+          setter={(date) => setStartDate(date)}
+          enabled={true}
+        />
+      </div>
+      <div>
+        End date:
+        <DatePicker
+          value={endDate}
+          setter={(date) => setEndDate(date)}
+          enabled={true}
+        />
+      </div>
+      <div>
+        Type of graph:
+        <GraphTypeSelector currentValue={graphType} setChose={setGraphType} />
+      </div>
+      <div>
+        Scale time axis:
+        <input
+          type="text"
+          value={timeScale}
+          className="scaler"
+          onChange={(e) => {
+            let scale = parseInt(e.target.value);
+            if (Number.isNaN(scale)) {
+              scale = 1;
+            } else if (scale < 1) {
+              scale = 1;
+            } else if (scale > 10000) {
+              scale = 10000;
+            }
+            setTimeScale(scale);
+          }}
+        />
+      </div>
+      <div>
+        Scale money axis
+        <input
+          type="text"
+          value={moneyScale}
+          className="scaler"
+          onChange={(e) => {
+            let scale = parseInt(e.target.value);
+            if (Number.isNaN(scale)) {
+              scale = 1;
+            } else if (scale < 1) {
+              scale = 1;
+            } else if (scale > 10000000) {
+              scale = 10000000;
+            }
+            setMoneyScale(scale);
+          }}
+        />
+      </div>
       <Graph
         startDate={startDate}
         data={graphData}

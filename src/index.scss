@@ -3,7 +3,6 @@
 @import "./styles/mixins.scss";
 body {
   background-color: $main-color;
-  color: $text-color;
 }
 
 .App {
@@ -32,18 +31,45 @@ body {
 .regular-button {
   @include element-border;
 
-  padding: 0.2rem;
-  margin: 0.2rem;
+  background-color: $button-color;
+  transition: background-color 0.2s ease-in;
+  color: white;
+  padding: 0.4em;
+  margin: 0.2em;
 }
 
 .regular-button:focus {
   @include element-border;
 }
 
+.regular-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.clickable {
+  outline-style: none;
+  outline-width: 2px;
+  outline-color: $button-hover-color;
+  transition: outline-style 0.2s ease;
+}
+
+.clickable:hover {
+  outline-style: solid;
+}
+
 .money-action {
   @include element-border;
-  margin-bottom: 1rem;
-  color: black;
+  margin: 1rem 0;
+  color: $text-color;
+  padding: 1em;
+  line-height: 2em;
+
+  & > * > input {
+    @include element-border;
+    @include white-input;
+    background-color: $main-color;
+  }
 }
 
 .passive {
@@ -58,20 +84,15 @@ body {
 
 .dropdown-base {
   @include element-border;
-  width: 6em;
-
-  display: inline-block;
-  margin-inline: 1rem;
-  background-color: $main-color;
-  color: white;
+  @include white-input;
+  color: $text-color;
 
   .dropdown-menu {
-    @include element-border;
-
     position: absolute;
     list-style-type: none;
     width: 6em;
     li {
+      outline-color: $main-color;
       display: block;
       width: 6em;
       background-color: $main-color;
@@ -92,14 +113,14 @@ body {
   height: 1rem;
   margin-inline: 0.5rem;
 
-  outline: outset 1px white;
-  border: 2px solid $main-color;
+  outline: solid 2px black;
+  border-radius: 3px;
 
   transition: background-color 0.2s ease;
 }
 
 .box-enabled {
-  background-color: white;
+  background-color: $text-color;
 }
 
 .box-disabled {
@@ -108,19 +129,31 @@ body {
 
 .graph {
   image-rendering: pixelated;
-  margin: 2rem;
-  background-color: $interactive-color;
+  margin: 0.5rem;
+
+  @include element-border;
 }
 
 .date-picker {
   @include element-border;
-  display: inline-block;
-  width: fit-content;
-  margin: 0.5rem;
-  padding: 0.5rem;
+  @include white-input;
+
+  outline-color: $main-color;
+  background-color: $main-color;
   input {
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
-    margin: 0;
+    width: 33%;
+    color: $text-color;
   }
+}
+
+.diagram {
+  @include element-border;
+  padding: 1em;
+  margin: 1em;
+  background-color: hsl(61, 100%, 75%);
+}
+
+.scaler {
+  @include element-border;
+  @include white-input;
 }
