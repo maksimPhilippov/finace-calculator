@@ -9,12 +9,14 @@ interface MoneyActionsListProp {
 export default function MoneyActionsList(prop: MoneyActionsListProp) {
   return (
     <div className="actions-list">
-      <button
-        className="regular-button"
-        onClick={() => prop.addMoneyAction(prop.workWithActives)}
-      >
-        Add
-      </button>
+      <div className="list-menu">
+        <button
+          className="regular-button"
+          onClick={() => prop.addMoneyAction(prop.workWithActives)}
+        >
+          Add
+        </button>
+      </div>
       {prop.actionsList
         .filter((action) => action.isActive == prop.workWithActives)
         .map((action) => (

@@ -12,15 +12,11 @@ body {
 }
 
 .actions-list {
-  margin: 1rem;
   padding: 1rem;
 }
 
 .save-button {
   @include element-border;
-
-  display: fixed;
-  position: absolute;
   bottom: 1rem;
   right: 1rem;
 
@@ -34,7 +30,6 @@ body {
   transition: background-color 0.2s ease-in;
   color: $primary-color;
   padding: 0.4em;
-  margin: 0.2em;
 }
 
 .regular-button:focus {
@@ -55,12 +50,15 @@ body {
 .clickable:hover {
   outline-style: solid;
 }
+.list-menu {
+  @include element-border;
+  @include main-tile;
+  background-color: $neutral-color-500;
+}
 
 .money-action {
   @include element-border;
-  margin: 1rem 0;
   color: $primary-color;
-  padding: 1em;
   line-height: 2em;
 
   @include main-tile;
@@ -144,6 +142,7 @@ body {
 .diagram {
   @include element-border;
   @include main-tile;
+  flex-basis: 80%;
   padding: 1em;
   margin: 1em;
   background-color: $neutral-color-500;
