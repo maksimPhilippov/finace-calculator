@@ -10,6 +10,11 @@ export default function MoneyActionsList(prop: MoneyActionsListProp) {
   return (
     <div className="actions-list">
       <div className="list-menu">
+        {prop.workWithActives ? (
+          <span>List of your actives</span>
+        ) : (
+          <span>List of your passives</span>
+        )}
         <button
           className="regular-button"
           onClick={() => prop.addMoneyAction(prop.workWithActives)}
