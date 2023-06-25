@@ -1,8 +1,20 @@
-$main-color: hsl(0, 0%, 90%);
-$interactive-color: hsl(210, 12%, 40%);
-$active-color: hsl(161, 100%, 60%);
+// $main-color: hsl(0, 0%, 90%);
+// $interactive-color: hsl(210, 12%, 40%);
+// $active-color: hsl(161, 100%, 60%);
+// $passive-color: #fe5448;
+// $borders-color: #5a6672;
+// $text-color: hsl(210, 12%, 9%);
+// $button-color: hsl(258, 100%, 35%);
+// $button-hover-color: hsl(300, 100%, 70%);
+$neutral-color-300: hsl(202, 100%, 80%);
+$neutral-color-500: #498afc;
+$neutral-color-700: #4f5fe6;
+
+$active-color: hsl(161, 100%, 55%);
 $passive-color: #fe5448;
-$borders-color: #5a6672;
-$text-color: hsl(210, 12%, 9%);
-$button-color: hsl(258, 100%, 35%);
-$button-hover-color: hsl(300, 100%, 70%);
+
+$primary-color: black;
+
+$secondary-color-300: #bd90f4;
+$secondary-color-500: #9446f2;
+$secondary-color-700: #7537bf;

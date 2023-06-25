@@ -2,12 +2,13 @@
 @import "./styles/reset.css";
 @import "./styles/mixins.scss";
 body {
-  background-color: $main-color;
+  background-color: $neutral-color-300;
 }
 
 .App {
   display: flex;
   flex-flow: row wrap;
+  font-family: "Roboto", sans-serif;
 }
 
 .actions-list {
@@ -17,8 +18,6 @@ body {
 
 .save-button {
   @include element-border;
-  padding: 0.2rem;
-  margin: 0.2rem;
 
   display: fixed;
   position: absolute;
@@ -31,9 +30,9 @@ body {
 .regular-button {
   @include element-border;
 
-  background-color: $button-color;
+  background-color: $secondary-color-500;
   transition: background-color 0.2s ease-in;
-  color: white;
+  color: $primary-color;
   padding: 0.4em;
   margin: 0.2em;
 }
@@ -43,14 +42,13 @@ body {
 }
 
 .regular-button:hover {
-  background-color: black;
-  color: white;
+  background-color: $secondary-color-300;
 }
 
 .clickable {
   outline-style: none;
   outline-width: 2px;
-  outline-color: $button-hover-color;
+  outline-color: $secondary-color-300;
   transition: outline-style 0.2s ease;
 }
 
@@ -61,44 +59,43 @@ body {
 .money-action {
   @include element-border;
   margin: 1rem 0;
-  color: $text-color;
+  color: $primary-color;
   padding: 1em;
   line-height: 2em;
+
+  @include main-tile;
 
   & > * > input {
     @include element-border;
     @include white-input;
-    background-color: $main-color;
+    background-color: $neutral-color-300;
   }
 }
 
 .passive {
   background-color: $passive-color;
-  outline-color: $passive-color;
 }
 
 .active {
   background-color: $active-color;
-  outline-color: $active-color;
 }
 
 .dropdown-base {
   @include element-border;
   @include white-input;
-  color: $text-color;
+  color: $primary-color;
 
   .dropdown-menu {
     position: absolute;
     list-style-type: none;
     width: 6em;
     li {
-      outline-color: $main-color;
       display: block;
       width: 6em;
-      background-color: $main-color;
+      background-color: $neutral-color-300;
     }
     li:hover {
-      background-color: $interactive-color;
+      background-color: $secondary-color-300;
     }
   }
 }
@@ -113,18 +110,18 @@ body {
   height: 1rem;
   margin-inline: 0.5rem;
 
-  outline: solid 2px black;
+  outline: solid 2px $primary-color;
   border-radius: 3px;
 
   transition: background-color 0.2s ease;
 }
 
 .box-enabled {
-  background-color: $text-color;
+  background-color: $primary-color;
 }
 
 .box-disabled {
-  background-color: $main-color;
+  background-color: $neutral-color-300;
 }
 
 .graph {
@@ -138,19 +135,18 @@ body {
   @include element-border;
   @include white-input;
 
-  outline-color: $main-color;
-  background-color: $main-color;
   input {
     width: 33%;
-    color: $text-color;
+    color: $primary-color;
   }
 }
 
 .diagram {
   @include element-border;
+  @include main-tile;
   padding: 1em;
   margin: 1em;
-  background-color: hsl(61, 100%, 75%);
+  background-color: $neutral-color-500;
 }
 
 .scaler {
