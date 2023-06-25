@@ -5,6 +5,7 @@ interface SaveButtonProp {
 }
 export default function SaveButton(prop: SaveButtonProp) {
   function click() {
+    window.localStorage.clear();
     let names: string[] = [];
     prop.actionsList.forEach((action) => {
       names.push(action.name);
