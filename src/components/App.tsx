@@ -69,9 +69,16 @@ function App() {
     setListMoneyActions(newList);
   }
 
+  function actionRemove(oldName: string) {
+    const newList = listMoneyActions.filter((action) => action.name != oldName);
+    setListMoneyActions(newList);
+  }
+
   return (
     <div className="App">
-      <EditActionContext.Provider value={{ EditAction: actionChange }}>
+      <EditActionContext.Provider
+        value={{ EditAction: actionChange, RemoveAction: actionRemove }}
+      >
         <MoneyActionsList
           workWithActives={true}
           actionsList={listMoneyActions}

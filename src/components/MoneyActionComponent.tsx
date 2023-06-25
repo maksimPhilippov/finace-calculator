@@ -19,6 +19,10 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
     setEditMode(false);
   }
 
+  function remove() {
+    editContext?.RemoveAction(prop.action.name);
+  }
+
   let className = "money-action ";
   className += prop.action.isActive ? "active" : "passive";
 
@@ -62,7 +66,7 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
 
   return (
     <div className={className}>
-      <div>
+      <div className="action-component-menu">
         {editMode ? (
           <button className="regular-button" onClick={save}>
             Save
@@ -72,6 +76,9 @@ export default function MoneyActionComponent(prop: MoneyActionComponentProp) {
             Edit
           </button>
         )}
+        <button className="regular-button" onClick={remove}>
+          Remove
+        </button>
       </div>
 
       <div>
