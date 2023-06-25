@@ -8,6 +8,7 @@ import Graph from "./Graph";
 import DatePicker from "./DatePicker";
 import { GraphTypes } from "../types/GraphTypes";
 import GraphTypeSelector from "./GraphTypeSelector";
+import SaveButton from "./SaveButton";
 
 interface DiagramProp {
   actionsList: MoneyAction[];
@@ -131,6 +132,7 @@ export default function Diagram(prop: DiagramProp) {
         xScale={timeScale}
         yScale={moneyScale}
       />
+      <SaveButton actionsList={prop.actionsList} />
     </div>
   );
 }

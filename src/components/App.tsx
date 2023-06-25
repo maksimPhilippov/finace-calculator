@@ -91,7 +91,6 @@ function App() {
         />
       </EditActionContext.Provider>
       <Diagram actionsList={listMoneyActions} />
-      <SaveButton actionsList={listMoneyActions} />
     </div>
   );
 }
