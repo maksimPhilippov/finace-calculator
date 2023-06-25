@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface DatePickerProp {
   value: Date;
   setter: (date: Date) => void;
@@ -5,101 +7,99 @@ interface DatePickerProp {
 }
 
 export default function DatePicker(prop: DatePickerProp) {
-  const day = prop.value.getDate();
-  const month = prop.value.getMonth();
-  const year = prop.value.getFullYear();
+  const [day, setDay] = useState(prop.value.getDate());
+  const [month, setMonth] = useState(prop.value.getMonth());
+  const [year, setYear] = useState(prop.value.getFullYear());
   const hours = 4;
 
   function getDaysInMonth(selectedYear: number, selectedMonth: number) {
     return 32 - new Date(selectedYear, selectedMonth, 32).getDate();
   }
 
-  function validateDay(
-    newDay: number,
-    currentYear: number,
-    currentMonth: number
-  ) {
-    const dateLimiter = getDaysInMonth(currentYear, currentMonth);
+  function validateNumber(digitsCount: number, num: string) {
+    if (!prop.enabled) return false;
+    if (num.length > digitsCount) {
+      num = num.slice(0, digitsCount);
+    }
+    let value = parseInt(num);
+
+    if (Number.isNaN(value)) {
+      return 0;
+    } else {
+      return value;
+    }
+  }
+
+  function finalValidation() {
+    let newYear = year;
+    let newMonth = month;
+    let newDay = day;
+
+    if (newYear < 1970) {
+      newYear = 1970;
+    } else if (newYear > 3000) {
+      newYear = 3000;
+    }
+
+    if (newMonth < 1) {
+      newMonth = 1;
+    } else if (newMonth > 12) {
+      newMonth = 12;
+    }
+    newMonth--;
+
+    const dateLimiter = getDaysInMonth(newYear, newMonth);
     if (newDay > dateLimiter) {
       newDay = dateLimiter;
     } else if (newDay < 1) {
       newDay = 1;
     }
-    return newDay;
-  }
 
-  function setDay(newDay: string) {
-    if (!prop.enabled) return;
-    let value = parseInt(newDay);
-    if (Number.isNaN(value)) {
-      value = 1;
-    }
+    const newDate = new Date(newYear, newMonth, newDay, hours);
+    newMonth++;
 
-    value = validateDay(value, year, month);
-    const newDate = new Date(year, month, value, hours);
-    prop.setter(newDate);
-  }
-
-  function setMonth(newMonth: string) {
-    if (!prop.enabled) return;
-    let value = parseInt(newMonth);
-    if (Number.isNaN(value)) {
-      value = 0;
-    }
-    value--;
-    if (value > 11) {
-      value = 11;
-    } else if (value < 0) {
-      value = 0;
-    }
-
-    let dayValue = validateDay(day, year, value);
-    const newDate = new Date(year, value, dayValue, hours);
-    prop.setter(newDate);
-  }
-
-  function setYear(newYear: string) {
-    if (!prop.enabled) return;
-    let value = parseInt(newYear);
-    if (Number.isNaN(value)) {
-      value = 0;
-    } else if (value < 0) {
-      value = 0;
-    } else if (value > 3000) {
-      value = 3000;
-    }
-
-    let dayValue = validateDay(day, value, month);
-
-    const newDate = new Date(value, month, dayValue, hours);
-    if (value < 1000) {
-      newDate.setFullYear(value);
-    }
-    prop.setter(newDate);
+    setDay(newDay);
+    setMonth(newMonth);
+    setYear(newYear);
   }
 
   return (
-    <div className="date-picker">
+    <div className="date-picker" onBlur={finalValidation}>
       <input
         size={2}
         type="text"
         className="date-picker-day"
         value={day}
-        onChange={(e) => setDay(e.target.value)}
+        onChange={(e) => {
+          const number = validateNumber(2, e.target.value);
+          if (number !== false) {
+            setDay(number);
+          }
+        }}
       />
       <input
         size={2}
         type="text"
         className="date-picker-month"
-        value={month + 1}
-        onChange={(e) => setMonth(e.target.value)}
+        value={month}
+        onChange={(e) => {
+          const number = validateNumber(2, e.target.value);
+          if (number !== false) {
+            setMonth(number);
+          }
+        }}
       />
       <input
         size={4}
         type="text"
         className="date-picker-year"
         value={year}
-        onChange={(e) => setYear(e.target.value)}
+        onChange={(e) => {
+          const number = validateNumber(4, e.target.value);
+          if (number !== false) {
+            setYear(number);
+          }
+        }}
       />
     </div>
   );
