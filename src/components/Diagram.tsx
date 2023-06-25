@@ -89,7 +89,7 @@ export default function Diagram(prop: DiagramProp) {
         <GraphTypeSelector currentValue={graphType} setChose={setGraphType} />
       </div>
       <div>
-        Scale time axis:
+        Scale time axis(days):
         <input
           type="text"
           value={timeScale}
