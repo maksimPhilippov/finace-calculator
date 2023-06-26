@@ -68,7 +68,7 @@ export function drawGraph(
         ctx.lineTo(scaled[i][0], scaled[i][1]);
       }
       ctx.strokeStyle = "rgb(0, 100, 0)";
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 2;
       ctx.stroke();
     }
   }
