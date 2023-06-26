@@ -134,7 +134,7 @@ body {
 
 .graph {
   image-rendering: pixelated;
-  margin: 0.5rem;
+  margin: auto;
 
   @include element-border;
 }

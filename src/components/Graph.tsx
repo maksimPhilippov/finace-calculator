@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { milisecondsInDay } from "../utils/ActiveCalculations";
 import { drawGraph } from "../utils/graphDrawing";
 
@@ -10,6 +10,7 @@ interface GraphProp {
 }
 export default function Graph(prop: GraphProp) {
   const canvas = useRef<HTMLCanvasElement | null>(null);
+  // const [size, setSize] = useState<[x: number, y: number]>([0, 0]);
 
   const graphPoints: [x: number, y: number][] = prop.data.map(
     ([date, value]) => [
@@ -17,6 +18,21 @@ export default function Graph(prop: GraphProp) {
       value,
     ]
   );
+
+  useEffect(() => {
+    const diagram = canvas.current?.parentElement;
+
+    if (diagram !== null && diagram !== undefined) {
+      const base = diagram.offsetWidth * 0.9;
+
+      // setSize([base, base / 2]);
+
+      if (canvas.current !== null) {
+        canvas.current.width = Math.round(base);
+        canvas.current.height = Math.round(base / 2);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (canvas.current !== null) {
@@ -32,7 +48,7 @@ export default function Graph(prop: GraphProp) {
           prop.yScale,
           50,
           50,
-          [width * 0.15, height * 0.9],
+          [Math.round(width * 0.15), Math.round(height * 0.9)],
           graphPoints
         );
       }
