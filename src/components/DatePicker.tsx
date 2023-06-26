@@ -56,6 +56,7 @@ export default function DatePicker(prop: DatePickerProp) {
     }
 
     const newDate = new Date(newYear, newMonth, newDay, hours);
+    prop.setter(newDate);
     newMonth++;
 
     setDay(newDay);
