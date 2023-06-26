@@ -78,13 +78,7 @@ function App() {
   }
 
   function actionRemove(oldName: string) {
-    console.log("---", oldName);
-    const newList = listMoneyActions.filter((action) => {
-      console.log(action.name, action.name != oldName);
-      return action.name != oldName;
-    });
-    console.log(newList);
-
+    const newList = listMoneyActions.filter((action) => action.name != oldName);
     setListMoneyActions(newList);
   }
 
