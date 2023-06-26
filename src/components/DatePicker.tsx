@@ -8,7 +8,7 @@ interface DatePickerProp {
 
 export default function DatePicker(prop: DatePickerProp) {
   const [day, setDay] = useState(prop.value.getDate());
-  const [month, setMonth] = useState(prop.value.getMonth());
+  const [month, setMonth] = useState(prop.value.getMonth() + 1);
   const [year, setYear] = useState(prop.value.getFullYear());
   const hours = 4;
 
