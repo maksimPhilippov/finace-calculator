@@ -2,6 +2,7 @@ import { PeriodSheme } from "./PeriodSheme";
 
 export interface MoneyAction {
   name: string;
+  id: number;
 
   investment: number;
   beginnigDate: Date;

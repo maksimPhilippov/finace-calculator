@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { MoneyAction } from "../types/MoneyAction";
 import MoneyActionsList from "./MoneyActionsList";
 import Diagram from "./Diagram";
-import SaveButton from "./SaveButton";
 import { PeriodSheme } from "../types/PeriodSheme";
 import { EditActionContext } from "../types/ActionEditContext";
 
 function App() {
   const [listMoneyActions, setListMoneyActions] = useState<MoneyAction[]>([]);
+  let [newActionId, setNewActionId] = useState(0);
 
   useEffect(() => {
     let unparsed = window.localStorage.getItem("actionNames");
@@ -25,14 +25,19 @@ function App() {
           return {};
         }
       });
-
       setListMoneyActions(actions);
+
+      unparsed = window.localStorage.getItem("lastActionId");
+      if (unparsed !== null) {
+        setNewActionId(JSON.parse(unparsed).lastActionId);
+      }
     }
   }, []);
 
   function addMoneyAction(isActive: boolean) {
     const newAction: MoneyAction = {
       name: String(new Date()),
+      id: newActionId,
 
       investment: 0,
       beginnigDate: new Date(),
@@ -46,6 +51,8 @@ function App() {
     };
     let newList = listMoneyActions.slice(0);
     newList.push(newAction);
+
+    setNewActionId((preventId) => preventId + 1);
     setListMoneyActions(newList);
   }
 
@@ -54,6 +61,7 @@ function App() {
     const oldElement = newList.find((elem) => elem.name === oldName);
     if (oldElement !== undefined) {
       oldElement.name = newvalue.name;
+      oldElement.id = newvalue.id;
 
       oldElement.investment = newvalue.investment;
       oldElement.beginnigDate = newvalue.beginnigDate;
@@ -70,7 +78,13 @@ function App() {
   }
 
   function actionRemove(oldName: string) {
-    const newList = listMoneyActions.filter((action) => action.name != oldName);
+    console.log("---", oldName);
+    const newList = listMoneyActions.filter((action) => {
+      console.log(action.name, action.name != oldName);
+      return action.name != oldName;
+    });
+    console.log(newList);
+
     setListMoneyActions(newList);
   }
 
@@ -90,7 +104,7 @@ function App() {
           addMoneyAction={addMoneyAction}
         />
       </EditActionContext.Provider>
-      <Diagram actionsList={listMoneyActions} />
+      <Diagram newActionId={newActionId} actionsList={listMoneyActions} />
     </div>
   );
 }

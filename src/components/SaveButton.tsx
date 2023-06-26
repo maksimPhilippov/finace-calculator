@@ -2,6 +2,7 @@ import { MoneyAction } from "../types/MoneyAction";
 
 interface SaveButtonProp {
   actionsList: MoneyAction[];
+  newActionId: number;
 }
 export default function SaveButton(prop: SaveButtonProp) {
   function click() {
@@ -12,6 +13,10 @@ export default function SaveButton(prop: SaveButtonProp) {
       window.localStorage.setItem(action.name, JSON.stringify(action));
     });
     window.localStorage.setItem("actionNames", JSON.stringify(names));
+    window.localStorage.setItem(
+      "lastActionId",
+      JSON.stringify({ lastActionId: prop.newActionId })
+    );
   }
 
   return (

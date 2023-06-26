@@ -12,6 +12,7 @@ import SaveButton from "./SaveButton";
 
 interface DiagramProp {
   actionsList: MoneyAction[];
+  newActionId: number;
 }
 export default function Diagram(prop: DiagramProp) {
   const [startDate, setStartDate] = useState(new Date());
@@ -130,7 +131,10 @@ export default function Diagram(prop: DiagramProp) {
         xScale={timeScale}
         yScale={moneyScale}
       />
-      <SaveButton actionsList={prop.actionsList} />
+      <SaveButton
+        newActionId={prop.newActionId}
+        actionsList={prop.actionsList}
+      />
     </div>
   );
 }

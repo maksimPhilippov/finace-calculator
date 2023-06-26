@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import { MoneyAction } from "../types/MoneyAction";
 import MoneyActionComponent from "./MoneyActionComponent";
 
@@ -25,7 +26,7 @@ export default function MoneyActionsList(prop: MoneyActionsListProp) {
       {prop.actionsList
         .filter((action) => action.isActive == prop.workWithActives)
         .map((action) => (
-          <MoneyActionComponent action={action} />
+          <MoneyActionComponent key={action.id} action={action} />
         ))}
     </div>
   );
