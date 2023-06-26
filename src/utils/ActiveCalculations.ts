@@ -100,6 +100,7 @@ export function MoneyActionImpact(
         cash += income;
       }
     }
+    console.log(capital);
     report.push([new Date(day), cash, capital]);
   }
   return report;

@@ -14,8 +14,9 @@ interface DiagramProp {
   actionsList: MoneyAction[];
   newActionId: number;
 }
+
 export default function Diagram(prop: DiagramProp) {
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(roundDate(new Date()));
   const [endDate, setEndDate] = useState(
     new Date(startDate.getTime() + milisecondsInDay * 1000)
   );
@@ -28,6 +29,12 @@ export default function Diagram(prop: DiagramProp) {
       MoneyActionImpact(action, startDate, endDate)
     );
   }, [startDate, endDate, prop.actionsList]);
+
+  function roundDate(date: Date) {
+    const ms = date.getTime();
+    const remainder = ms % milisecondsInDay;
+    return new Date(ms - remainder);
+  }
 
   function initGraphData() {
     let result: [date: Date, value: number][] = [];

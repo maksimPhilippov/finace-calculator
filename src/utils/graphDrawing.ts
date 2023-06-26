@@ -67,8 +67,8 @@ export function drawGraph(
       for (let i = 0; i < scaled.length; i++) {
         ctx.lineTo(scaled[i][0], scaled[i][1]);
       }
-      ctx.strokeStyle = "rgb(0, 100, 0)";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgb(0, 140, 0)";
+      ctx.lineWidth = 4;
       ctx.stroke();
     }
   }
