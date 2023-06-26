@@ -14,9 +14,7 @@ interface DiagramProp {
   actionsList: MoneyAction[];
 }
 export default function Diagram(prop: DiagramProp) {
-  const [startDate, setStartDate] = useState(
-    new Date(milisecondsInDay * 365 * 40)
-  );
+  const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(
     new Date(startDate.getTime() + milisecondsInDay * 1000)
   );

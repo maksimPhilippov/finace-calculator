@@ -63,7 +63,8 @@ export function isMoneyActionGain(active: MoneyAction, day: Date) {
       }
       break;
   }
-  let result = period % active.frequency === 0 ? true : false;
+  let result =
+    period > 0 ? (period % active.frequency === 0 ? true : false) : false;
   return result;
 }
 
