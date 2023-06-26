@@ -10,7 +10,7 @@ interface GraphProp {
 }
 export default function Graph(prop: GraphProp) {
   const canvas = useRef<HTMLCanvasElement | null>(null);
-  // const [size, setSize] = useState<[x: number, y: number]>([0, 0]);
+  const [size, setSize] = useState<[x: number, y: number]>([0, 0]);
 
   const graphPoints: [x: number, y: number][] = prop.data.map(
     ([date, value]) => [
@@ -20,25 +20,18 @@ export default function Graph(prop: GraphProp) {
   );
 
   useEffect(() => {
-    const diagram = canvas.current?.parentElement;
-
-    if (diagram !== null && diagram !== undefined) {
-      const base = diagram.offsetWidth * 0.9;
-
-      // setSize([base, base / 2]);
-
-      if (canvas.current !== null) {
-        canvas.current.width = Math.round(base);
-        canvas.current.height = Math.round(base / 2);
-      }
-    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   useEffect(() => {
     if (canvas.current !== null) {
       const ctx = canvas.current.getContext("2d");
-      const width = canvas.current.offsetWidth;
-      const height = canvas.current.offsetHeight;
+      const width = size[0];
+      const height = size[1];
       if (ctx !== null) {
         drawGraph(
           ctx,
@@ -53,7 +46,20 @@ export default function Graph(prop: GraphProp) {
         );
       }
     }
-  }, [graphPoints]);
+  }, [graphPoints, size]);
+
+  function handleResize() {
+    if (canvas.current !== null) {
+      const diagram = canvas.current.parentElement;
+      if (diagram !== null && diagram !== undefined) {
+        const base = diagram.offsetWidth * 0.9;
+
+        canvas.current.width = Math.round(base);
+        canvas.current.height = Math.round(base / 2);
+        setSize([Math.round(base), Math.round(base / 2)]);
+      }
+    }
+  }
   return (
     <div>
       <canvas ref={canvas} className="graph"></canvas>
