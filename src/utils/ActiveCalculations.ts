@@ -24,7 +24,7 @@ function dayDifference(day: Date, beginnigDate: Date) {
 function monthDifference(day: Date, beginnigDate: Date) {
   let months: number;
   months = (day.getFullYear() - beginnigDate.getFullYear()) * 12;
-  months += beginnigDate.getMonth() - day.getMonth();
+  months += day.getMonth() - beginnigDate.getMonth();
   return months;
 }
 
